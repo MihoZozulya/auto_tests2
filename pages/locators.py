@@ -15,3 +15,8 @@ class ProductPageLocators():
     MESSAGE_TO_SUMM_IN_BASKET = (By.CSS_SELECTOR, "div.alert:nth-child(3) > div:nth-child(2) > p:nth-child(1)")
     NAME_BOOK = (By.CSS_SELECTOR, "h1")
     PRICE_BOOK = (By.CSS_SELECTOR, "p.price_color")
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "div.alert:nth-child(1) > div:nth-child(2)")
+
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    # LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
