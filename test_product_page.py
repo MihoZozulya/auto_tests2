@@ -1,7 +1,39 @@
 from .pages.product_page import ProductPage
 from .pages.basket_page import BasketPage
+from .pages.login_page import LoginPage
 import time
 import pytest
+
+@pytest.mark.for_user
+class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/accounts/login/"
+        email = str(time.time()) + "@fakemail.org"
+        password = str(time.time())
+        self.page = LoginPage(browser, link)
+        self.page.open()
+        self.page.register_new_user(email, password, browser)
+        self.page.should_be_authorized_user()
+
+    @pytest.mark.xfail
+    def test_user_cant_see_success_message_after_adding_product_to_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
+        page = ProductPage(browser, link)
+        page.open()
+        page.go_to_basket()
+        page.solve_quiz_and_get_code()
+        page.should_not_be_success_message()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
+        page = ProductPage(browser, link)
+        page.open()
+        page.go_to_basket()
+        page.solve_quiz_and_get_code()
+        page.should_be_correct_book()
+        page.should_be_correct_price()
+
 
 @pytest.mark.skip
 @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
