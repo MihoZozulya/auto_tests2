@@ -13,7 +13,7 @@ class TestUserAddToBasketFromProductPage():
         password = str(time.time())
         self.page = LoginPage(browser, link)
         self.page.open()
-        self.page.register_new_user(email, password, browser)
+        self.page.register_new_user(email, password)
         self.page.should_be_authorized_user()
 
     @pytest.mark.xfail
@@ -24,7 +24,7 @@ class TestUserAddToBasketFromProductPage():
         page.go_to_basket()
         page.solve_quiz_and_get_code()
         page.should_not_be_success_message()
-        
+
     @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
